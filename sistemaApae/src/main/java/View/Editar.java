@@ -1,49 +1,137 @@
 package View;
 
 import Controller.Aluno;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import View.Alunos;
-import Model.AlunoModel;
-import java.text.ParseException;
-import javax.swing.JFormattedTextField;
-import javax.swing.text.MaskFormatter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Editar extends javax.swing.JFrame {
 
+    Aluno aluno;
 
-    public Editar() {
+    public Editar(Aluno aluno) {
+        this.aluno = aluno;
         initComponents();
+        nomeTF.setText(aluno.getNome());
+        cidsTF.setText(aluno.getCid());
+        nascimentoFTF.setText(aluno.getNascimento());
+        anoEscolarFTF.setText(aluno.getAno());
+        String modalidade = aluno.getModalidadeEnsino();
+        if (modalidade.equals("Creche")) {
+            crecheRB.setSelected(true);
+        } else {
+            if (modalidade.equals("Educação infantil")) {
+                educacaoInfantilRB.setSelected(true);
+            } else {
+                if (modalidade.equals("Ensino fundamental anos iniciais")) {
+                    ensinoFundamentalRB.setSelected(true);
+
+                } else {
+                    if (modalidade.equals("EJA anos iniciais")) {
+                        ejaRB.setSelected(true);
+                    } else {
+                        atividadesComplementaresRB.setSelected(true);
+                    }
+                }
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        modalidadeEnsinoBG = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
+        modalidadeEnsinoPN = new javax.swing.JPanel();
+        crecheRB = new javax.swing.JRadioButton();
+        educacaoInfantilRB = new javax.swing.JRadioButton();
+        ensinoFundamentalRB = new javax.swing.JRadioButton();
+        modalidadeEnsinoLB = new javax.swing.JLabel();
+        atividadesComplementaresRB = new javax.swing.JRadioButton();
+        ejaRB = new javax.swing.JRadioButton();
+        formPN = new javax.swing.JPanel();
         nascimentoLB = new javax.swing.JLabel();
         nomeLB = new javax.swing.JLabel();
-        anoEscolarLB = new javax.swing.JLabel();
         nomeTF = new javax.swing.JTextField();
-        cidsLB = new javax.swing.JLabel();
-        cidsTF = new javax.swing.JTextField();
         nascimentoFTF = new javax.swing.JFormattedTextField();
         anoEscolarFTF = new javax.swing.JFormattedTextField();
-        jPanel2 = new javax.swing.JPanel();
+        cidsLB = new javax.swing.JLabel();
+        cidsTF = new javax.swing.JTextField();
+        anoEscolarLB = new javax.swing.JLabel();
+        tituloPN = new javax.swing.JPanel();
         tituloLB = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        cadastrarBTN = new javax.swing.JButton();
+        botoesPN = new javax.swing.JPanel();
+        editarBTN = new javax.swing.JButton();
         cancelarBTN = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("UAiQueFome");
+        setTitle("APAE Alvinópolis");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(249, 160, 63));
 
-        jPanel5.setBackground(new java.awt.Color(249, 160, 63));
+        modalidadeEnsinoPN.setBackground(new java.awt.Color(249, 160, 63));
+
+        modalidadeEnsinoBG.add(crecheRB);
+        crecheRB.setText("Creche");
+        crecheRB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crecheRBActionPerformed(evt);
+            }
+        });
+
+        modalidadeEnsinoBG.add(educacaoInfantilRB);
+        educacaoInfantilRB.setText("Educação infantil");
+
+        modalidadeEnsinoBG.add(ensinoFundamentalRB);
+        ensinoFundamentalRB.setText("Ensino Fundamental Anos Iniciais");
+
+        modalidadeEnsinoLB.setBackground(new java.awt.Color(249, 160, 63));
+        modalidadeEnsinoLB.setForeground(new java.awt.Color(255, 255, 255));
+        modalidadeEnsinoLB.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        modalidadeEnsinoLB.setText("Modalidade de ensino:");
+
+        modalidadeEnsinoBG.add(atividadesComplementaresRB);
+        atividadesComplementaresRB.setText("Atividades Complementares");
+
+        modalidadeEnsinoBG.add(ejaRB);
+        ejaRB.setText("EJA Anos Iniciais");
+
+        javax.swing.GroupLayout modalidadeEnsinoPNLayout = new javax.swing.GroupLayout(modalidadeEnsinoPN);
+        modalidadeEnsinoPN.setLayout(modalidadeEnsinoPNLayout);
+        modalidadeEnsinoPNLayout.setHorizontalGroup(
+            modalidadeEnsinoPNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(modalidadeEnsinoPNLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(modalidadeEnsinoPNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(crecheRB)
+                    .addComponent(educacaoInfantilRB)
+                    .addComponent(atividadesComplementaresRB)
+                    .addComponent(ejaRB)
+                    .addComponent(ensinoFundamentalRB)
+                    .addComponent(modalidadeEnsinoLB))
+                .addContainerGap(167, Short.MAX_VALUE))
+        );
+        modalidadeEnsinoPNLayout.setVerticalGroup(
+            modalidadeEnsinoPNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(modalidadeEnsinoPNLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(modalidadeEnsinoLB, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(crecheRB)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(educacaoInfantilRB)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ensinoFundamentalRB)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ejaRB)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(atividadesComplementaresRB)
+                .addGap(22, 22, 22))
+        );
+
+        formPN.setBackground(new java.awt.Color(249, 160, 63));
 
         nascimentoLB.setBackground(new java.awt.Color(249, 160, 63));
         nascimentoLB.setForeground(new java.awt.Color(255, 255, 255));
@@ -55,25 +143,14 @@ public class Editar extends javax.swing.JFrame {
         nomeLB.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         nomeLB.setText("Nome");
 
-        anoEscolarLB.setBackground(new java.awt.Color(249, 160, 63));
-        anoEscolarLB.setForeground(new java.awt.Color(255, 255, 255));
-        anoEscolarLB.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        anoEscolarLB.setText("Ano escolar");
-
         nomeTF.setBackground(java.awt.Color.darkGray);
         nomeTF.setForeground(new java.awt.Color(249, 160, 63));
+        nomeTF.setEnabled(false);
         nomeTF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nomeTFActionPerformed(evt);
             }
         });
-
-        cidsLB.setBackground(new java.awt.Color(249, 160, 63));
-        cidsLB.setForeground(new java.awt.Color(255, 255, 255));
-        cidsLB.setText("CIDs");
-
-        cidsTF.setBackground(java.awt.Color.darkGray);
-        cidsTF.setForeground(new java.awt.Color(249, 160, 63));
 
         nascimentoFTF.setBackground(java.awt.Color.darkGray);
         nascimentoFTF.setColumns(10);
@@ -84,88 +161,109 @@ public class Editar extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         nascimentoFTF.setToolTipText("");
+        nascimentoFTF.setEnabled(false);
 
         anoEscolarFTF.setBackground(java.awt.Color.darkGray);
         anoEscolarFTF.setForeground(new java.awt.Color(249, 160, 63));
         anoEscolarFTF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        anoEscolarFTF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anoEscolarFTFActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        cidsLB.setBackground(new java.awt.Color(249, 160, 63));
+        cidsLB.setForeground(new java.awt.Color(255, 255, 255));
+        cidsLB.setText("CIDs");
+
+        cidsTF.setBackground(java.awt.Color.darkGray);
+        cidsTF.setForeground(new java.awt.Color(249, 160, 63));
+
+        anoEscolarLB.setBackground(new java.awt.Color(249, 160, 63));
+        anoEscolarLB.setForeground(new java.awt.Color(255, 255, 255));
+        anoEscolarLB.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        anoEscolarLB.setText("Ano escolar");
+
+        javax.swing.GroupLayout formPNLayout = new javax.swing.GroupLayout(formPN);
+        formPN.setLayout(formPNLayout);
+        formPNLayout.setHorizontalGroup(
+            formPNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(formPNLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(cidsLB)
-                        .addGap(18, 18, 18)
-                        .addComponent(cidsTF))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(formPNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(formPNLayout.createSequentialGroup()
+                        .addGroup(formPNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nomeLB, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cidsLB))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(formPNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(nomeTF, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+                            .addComponent(cidsTF)))
+                    .addGroup(formPNLayout.createSequentialGroup()
                         .addComponent(nascimentoLB)
-                        .addGap(18, 18, 18)
-                        .addComponent(nascimentoFTF, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(80, 80, 80)
-                        .addComponent(anoEscolarLB, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(anoEscolarFTF, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(2, 2, 2))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(nomeLB, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(nomeTF, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(49, 49, 49))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nascimentoFTF, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(formPNLayout.createSequentialGroup()
+                        .addComponent(anoEscolarLB)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(anoEscolarFTF, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 70, Short.MAX_VALUE))
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        formPNLayout.setVerticalGroup(
+            formPNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(formPNLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(formPNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nomeLB, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nomeTF, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nascimentoLB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(anoEscolarLB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(nascimentoFTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(anoEscolarFTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(formPNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cidsLB, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cidsTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(formPNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nascimentoLB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(nascimentoFTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(formPNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(anoEscolarFTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(anoEscolarLB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
-        jPanel2.setBackground(new java.awt.Color(249, 160, 63));
+        tituloPN.setBackground(new java.awt.Color(249, 160, 63));
 
         tituloLB.setBackground(new java.awt.Color(249, 160, 63));
         tituloLB.setFont(new java.awt.Font("Dialog", 0, 28)); // NOI18N
         tituloLB.setForeground(new java.awt.Color(255, 255, 255));
-        tituloLB.setText("Cadastro de Aluno");
+        tituloLB.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        tituloLB.setText("Editar");
+        tituloLB.setToolTipText("");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout tituloPNLayout = new javax.swing.GroupLayout(tituloPN);
+        tituloPN.setLayout(tituloPNLayout);
+        tituloPNLayout.setHorizontalGroup(
+            tituloPNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tituloPNLayout.createSequentialGroup()
                 .addComponent(tituloLB, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+        tituloPNLayout.setVerticalGroup(
+            tituloPNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tituloPNLayout.createSequentialGroup()
                 .addContainerGap(50, Short.MAX_VALUE)
                 .addComponent(tituloLB, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );
 
-        jPanel3.setBackground(new java.awt.Color(249, 160, 63));
+        botoesPN.setBackground(new java.awt.Color(249, 160, 63));
 
-        cadastrarBTN.setBackground(java.awt.Color.darkGray);
-        cadastrarBTN.setForeground(new java.awt.Color(255, 255, 255));
-        cadastrarBTN.setText("Cadastrar");
-        cadastrarBTN.addActionListener(new java.awt.event.ActionListener() {
+        editarBTN.setBackground(java.awt.Color.darkGray);
+        editarBTN.setForeground(new java.awt.Color(255, 255, 255));
+        editarBTN.setText("Editar");
+        editarBTN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cadastrarBTNActionPerformed(evt);
+                editarBTNActionPerformed(evt);
             }
         });
 
@@ -178,23 +276,23 @@ public class Editar extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout botoesPNLayout = new javax.swing.GroupLayout(botoesPN);
+        botoesPN.setLayout(botoesPNLayout);
+        botoesPNLayout.setHorizontalGroup(
+            botoesPNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(botoesPNLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(cadastrarBTN)
+                .addComponent(editarBTN)
                 .addGap(18, 18, 18)
                 .addComponent(cancelarBTN)
                 .addContainerGap(47, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+        botoesPNLayout.setVerticalGroup(
+            botoesPNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, botoesPNLayout.createSequentialGroup()
                 .addContainerGap(40, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cadastrarBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(botoesPNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(editarBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cancelarBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42))
         );
@@ -203,29 +301,31 @@ public class Editar extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(164, 164, 164))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(91, 91, 91))
+                .addContainerGap(36, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botoesPN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(modalidadeEnsinoPN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(tituloPN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(164, 164, 164))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(formPN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addContainerGap()))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(38, 38, 38)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tituloPN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(formPN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54))
+                .addComponent(modalidadeEnsinoPN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botoesPN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -236,7 +336,9 @@ public class Editar extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 240, Short.MAX_VALUE))
         );
 
         pack();
@@ -247,52 +349,133 @@ public class Editar extends javax.swing.JFrame {
         new Alunos().setVisible(true);
     }//GEN-LAST:event_cancelarBTNActionPerformed
 
-    private void cadastrarBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarBTNActionPerformed
-        
-        if (nomeTF.getText().equals("") || anoEscolarFTF.getText().equals("") || nascimentoFTF.getText().equals("")||cidsTF.getText().equals("")) {
+    private void editarBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarBTNActionPerformed
+
+        if (nomeTF.getText().equals("") || anoEscolarFTF.getText().equals("") || nascimentoFTF.getText().equals("") || cidsTF.getText().equals("") || modalidadeEnsinoBG.getSelection() == null) {
             JOptionPane.showMessageDialog(null, "Há algum campo em branco!", "Aviso!", JOptionPane.PLAIN_MESSAGE);
-        }else{
-            Aluno aluno = new Aluno(nomeTF.getText(), anoEscolarFTF.getText(), cidsTF.getText(), nascimentoFTF.getText());
-            setVisible(false);
-            new Alunos().setVisible(true);
+        } else {
+            if (verificaData()) {
+                String modalidade = "";
+                //System.out.println(modalidadeEnsinoBG.getSelection().toString());
+                if (crecheRB.isSelected()) {
+                    modalidade = "Creche";
+                } else {
+                    if (educacaoInfantilRB.isSelected()) {
+                        modalidade = "Educação infantil";
+                    } else {
+                        if (ensinoFundamentalRB.isSelected()) {
+                            modalidade = "Ensino fundamental anos iniciais";
+                        } else {
+                            if (ejaRB.isSelected()) {
+                                modalidade = "EJA anos iniciais";
+                            } else {
+                                modalidade = "Atividades complementares";
+                            }
+                        }
+                    }
+                }
+                Aluno.edita(this.aluno.getId(), nomeTF.getText(), anoEscolarFTF.getText(), cidsTF.getText(), nascimentoFTF.getText(), modalidade);
+                setVisible(false);
+                new Alunos().setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Data inválida", "Aviso!", JOptionPane.PLAIN_MESSAGE);
+            }
         }
-        
-        
-    }//GEN-LAST:event_cadastrarBTNActionPerformed
+
+
+    }//GEN-LAST:event_editarBTNActionPerformed
 
     private void nomeTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeTFActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nomeTFActionPerformed
 
+    private void crecheRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crecheRBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_crecheRBActionPerformed
+
+    private void anoEscolarFTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anoEscolarFTFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_anoEscolarFTFActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFormattedTextField anoEscolarFTF;
     private javax.swing.JLabel anoEscolarLB;
-    private javax.swing.JButton cadastrarBTN;
+    private javax.swing.JRadioButton atividadesComplementaresRB;
+    private javax.swing.JPanel botoesPN;
     private javax.swing.JButton cancelarBTN;
     private javax.swing.JLabel cidsLB;
     private javax.swing.JTextField cidsTF;
+    private javax.swing.JRadioButton crecheRB;
+    private javax.swing.JButton editarBTN;
+    private javax.swing.JRadioButton educacaoInfantilRB;
+    private javax.swing.JRadioButton ejaRB;
+    private javax.swing.JRadioButton ensinoFundamentalRB;
+    private javax.swing.JPanel formPN;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel5;
+    private javax.swing.ButtonGroup modalidadeEnsinoBG;
+    private javax.swing.JLabel modalidadeEnsinoLB;
+    private javax.swing.JPanel modalidadeEnsinoPN;
     private javax.swing.JFormattedTextField nascimentoFTF;
     private javax.swing.JLabel nascimentoLB;
     private javax.swing.JLabel nomeLB;
     private javax.swing.JTextField nomeTF;
     private javax.swing.JLabel tituloLB;
+    private javax.swing.JPanel tituloPN;
     // End of variables declaration//GEN-END:variables
-
-    private void mascaraInt(JTextField textField) {
-        //Máscara que aceita apenas números
-        String texto = textField.getText();
-        if (texto.length() > 0) {
-            //Verifica se o último caractere digitado é um número
-            if (texto.charAt(texto.length() - 1) < '0' || texto.charAt(texto.length() - 1) > '9') {
-                //Apaga o caractere digitado
-                texto = texto.substring(0, texto.length() - 1);
+    private boolean verificaData() {
+        String data = nascimentoFTF.getText();
+        LocalDate dataAtual = LocalDate.now();
+        DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String dataFormatada = dataAtual.format(formatador);
+        int dia = Integer.parseInt(data.charAt(0) + "") * 10 + Integer.parseInt(data.charAt(1) + "");
+        int mes = Integer.parseInt(data.charAt(3) + "") * 10 + Integer.parseInt(data.charAt(4) + "");
+        int ano = Integer.parseInt(data.charAt(6) + "") * 1000 + Integer.parseInt(data.charAt(7) + "") * 100 + Integer.parseInt(data.charAt(8) + "") * 10 + Integer.parseInt(data.charAt(9) + "");
+        int diaAtual = Integer.parseInt(dataFormatada.charAt(0) + "") * 10 + Integer.parseInt(dataFormatada.charAt(1) + "");
+        int mesAtual = Integer.parseInt(dataFormatada.charAt(3) + "") * 10 + Integer.parseInt(dataFormatada.charAt(4) + "");
+        int anoAtual = Integer.parseInt(dataFormatada.charAt(6) + "") * 1000 + Integer.parseInt(dataFormatada.charAt(7) + "") * 100 + Integer.parseInt(dataFormatada.charAt(8) + "") * 10 + Integer.parseInt(dataFormatada.charAt(9) + "");
+        if (mes > 12 || dia > numDias(mes, ano) || ano > anoAtual || dia < 1 || mes < 1) {
+            return false;
+        }
+        if (ano == anoAtual) {
+            if (mes > mesAtual) {
+                return false;
+            }
+            if (mes == mesAtual) {
+                if (dia > diaAtual) {
+                    return false;
+                }
             }
         }
-        textField.setText(texto);
+        return true;
+    }
+
+    private boolean verificaBissexto(int ano) {
+        if (ano % 4 != 0) {
+            return false;
+        }
+        if (ano % 400 == 0) {
+            return true;
+        }
+        return ano % 100 != 0;
+    }
+
+    private int numDias(int mes, int ano) {
+        switch (mes) {
+            case 1, 3, 5, 7, 8, 10, 12 -> {
+                return 31;
+            }
+            case 4, 6, 9, 11 -> {
+                return 30;
+            }
+            case 2 -> {
+                if (verificaBissexto(ano)) {
+                    return 29;
+                }
+                return 28;
+            }
+
+        }
+        return 0;
     }
 }

@@ -3,26 +3,20 @@ package View;
 import Controller.Aluno;
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Arrays;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import Model.AlunoModel;
 
 public class Alunos extends javax.swing.JFrame {
 
-    private static String cod_prod; //variavel que vai guardar o codigo do produto
+    private static String id;
 
-    private static String cnpj_rest;//variavel que vai guardar o codigo do restaurante
-
-    public static String getCod_prod() {
-        return cod_prod;
+    public static String getId() {
+        return id;
     }
 
     public Alunos() {
         initComponents();
-        preencheTab();
+        preencheTabela();
     }
 
     public static void main(String args[]) {
@@ -58,11 +52,11 @@ public class Alunos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nome", "Data de nascimento", "Idade", "Ano Escolar", "Cids"
+                "Id", "Nome", "Data de nascimento", "Idade", "Modalidade de ensino", "Ano Escolar", "Cids"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -158,7 +152,12 @@ public class Alunos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void deletarBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletarBTNActionPerformed
-        atualizaTab();
+        int linhaSelecionada = listaAlunosTB.getSelectedRow(); // índice da linha selecionada
+        if (linhaSelecionada != -1) {
+            Aluno.deleta(String.valueOf(listaAlunosTB.getValueAt(linhaSelecionada, 0)));
+            setVisible(false);
+            new Alunos().setVisible(true);
+        }
     }//GEN-LAST:event_deletarBTNActionPerformed
 
     private void cadastrarBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarBTNActionPerformed
@@ -168,8 +167,24 @@ public class Alunos extends javax.swing.JFrame {
     }//GEN-LAST:event_cadastrarBTNActionPerformed
 
     private void editarBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarBTNActionPerformed
-        setVisible(false);
-        new Editar().setVisible(true);
+        int linhaSelecionada = listaAlunosTB.getSelectedRow(); // índice da linha selecionada
+        if (linhaSelecionada != -1) { // verifica se alguma linha está selecionada
+            //"Id", "Nome", "Data de nascimento", "Idade", modalidade,"Ano Escolar", "Cids"
+            Aluno aluno = new Aluno(
+                    String.valueOf(listaAlunosTB.getValueAt(linhaSelecionada, 1)),//nome
+                    String.valueOf(listaAlunosTB.getValueAt(linhaSelecionada, 5)),//ano
+                    String.valueOf(listaAlunosTB.getValueAt(linhaSelecionada, 0)),//id
+                    String.valueOf(listaAlunosTB.getValueAt(linhaSelecionada, 6)),//cid
+                    String.valueOf(listaAlunosTB.getValueAt(linhaSelecionada, 2)),//nasc
+                    String.valueOf(listaAlunosTB.getValueAt(linhaSelecionada, 3)),//idade
+                    String.valueOf(listaAlunosTB.getValueAt(linhaSelecionada, 4))//modalidade
+            );
+
+            setVisible(false);
+            new Editar(aluno).setVisible(true);
+        }
+
+
     }//GEN-LAST:event_editarBTNActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -182,21 +197,27 @@ public class Alunos extends javax.swing.JFrame {
     private javax.swing.JPanel painel_BTN;
     // End of variables declaration//GEN-END:variables
 
-    private void preencheTab() {//Função que vai preencher as tabelas com os produtos do restaurante
-        ArrayList<String> list_alunos = Aluno.getAlunos();
-        //Os passos abaixo mudam a cor do header da tabela
+    private void preencheTabela() {
         DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
         headerRenderer.setBackground(Color.DARK_GRAY);
         headerRenderer.setForeground(Color.WHITE);
-
         for (int i = 0; i < listaAlunosTB.getModel().getColumnCount(); i++) {
             listaAlunosTB.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
         }
-    }
+        ArrayList<Aluno> alunos = Aluno.getAlunos();
+        DefaultTableModel modelo = (DefaultTableModel) listaAlunosTB.getModel();
+        modelo.setRowCount(0);
+        for (Aluno a : alunos) {
+            modelo.addRow(new Object[]{
+                a.getId(),
+                a.getNome(),
+                a.getNascimento(),
+                a.getIdade(),
+                a.getModalidadeEnsino(),
+                a.getAno(),
+                a.getCid()
+            });
+        }
 
-    private void atualizaTab() {
-        DefaultTableModel model = (DefaultTableModel) listaAlunosTB.getModel();
-        model.setRowCount(0);
-        preencheTab();
     }
 }

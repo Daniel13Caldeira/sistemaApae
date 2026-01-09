@@ -327,27 +327,26 @@ public class Cadastro extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Há algum campo em branco!", "Aviso!", JOptionPane.PLAIN_MESSAGE);
         } else {
             if (verificaData()) {
-                String anoEscolar = "";
+                String modalidade = "";
                 //System.out.println(modalidadeEnsinoBG.getSelection().toString());
                 if (crecheRB.isSelected()) {
-                    anoEscolar = "Creche";
+                    modalidade = "Creche";
                 } else {
                     if (educacaoInfantilRB.isSelected()) {
-                        anoEscolar = "Educação infantil";
+                        modalidade = "Educação infantil";
                     } else {
                         if (ensinoFundamentalRB.isSelected()) {
-                            anoEscolar = "Ensino fundamental anos iniciais";
+                            modalidade = "Ensino fundamental anos iniciais";
                         } else {
                             if (ejaRB.isSelected()) {
-                                anoEscolar = "EJA anos iniciais";
+                                modalidade = "EJA anos iniciais";
                             } else {
-                                anoEscolar = "Atividades complementares";
+                                modalidade = "Atividades complementares";
                             }
                         }
                     }
                 }
-                anoEscolar = anoEscolarFTF.getText().concat(" ano - " + anoEscolar);
-                Aluno.cadastra(nomeTF.getText(), anoEscolar, cidsTF.getText(), nascimentoFTF.getText());
+                Aluno.cadastra(nomeTF.getText(), anoEscolarFTF.getText(), cidsTF.getText(), nascimentoFTF.getText(),modalidade);
                 setVisible(false);
                 new Alunos().setVisible(true);
             } else {
@@ -401,16 +400,12 @@ public class Cadastro extends javax.swing.JFrame {
         LocalDate dataAtual = LocalDate.now();
         DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String dataFormatada = dataAtual.format(formatador);
-        System.out.println("data " + data);
-        System.out.println("dtata atual " + dataFormatada);
         int dia = Integer.parseInt(data.charAt(0) + "") * 10 + Integer.parseInt(data.charAt(1) + "");
         int mes = Integer.parseInt(data.charAt(3) + "") * 10 + Integer.parseInt(data.charAt(4) + "");
         int ano = Integer.parseInt(data.charAt(6) + "") * 1000 + Integer.parseInt(data.charAt(7) + "") * 100 + Integer.parseInt(data.charAt(8) + "") * 10 + Integer.parseInt(data.charAt(9) + "");
         int diaAtual = Integer.parseInt(dataFormatada.charAt(0) + "") * 10 + Integer.parseInt(dataFormatada.charAt(1) + "");
         int mesAtual = Integer.parseInt(dataFormatada.charAt(3) + "") * 10 + Integer.parseInt(dataFormatada.charAt(4) + "");
         int anoAtual = Integer.parseInt(dataFormatada.charAt(6) + "") * 1000 + Integer.parseInt(dataFormatada.charAt(7) + "") * 100 + Integer.parseInt(dataFormatada.charAt(8) + "") * 10 + Integer.parseInt(dataFormatada.charAt(9) + "");
-        System.out.println("data: " + dia + " " + mes + " " + ano + "");
-        System.out.println("data atual: " + diaAtual + " " + mesAtual + " " + anoAtual + "");
         if (mes > 12 || dia > numDias(mes, ano) || ano > anoAtual || dia < 1 || mes < 1) {
             return false;
         }

@@ -41,6 +41,7 @@ public class AlunoModel {
     }
 
     public static void deleta(String id) {
+        System.out.println("entrou deleta");
         File arquivo = abreArquivo();
         ArrayList<String> salvar = new ArrayList<>();
         try {
@@ -49,6 +50,7 @@ public class AlunoModel {
             //primeira linha a ser salva
             String linha = leitor.readLine();
             while (linha != null) {
+                System.out.println("linha");
                 if (!id.equals(linha.split(";")[0])) {
                     salvar.add(linha);
                 }
@@ -77,8 +79,8 @@ public class AlunoModel {
         }
     }
 
-    public void altera(String id, String dados) {
-        deleta(id);
+    public static void edita(String dados) {
+        deleta(dados.split(";")[0]);
         cadastra(dados);
     }
 
